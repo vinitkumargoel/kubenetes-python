@@ -24,9 +24,10 @@ for data in config_yml:
         if "cluster_url" in key:
             CLUSTER_URL = value
         if "role" in key:
-            for key, value in value.items():
-                if "name" in key:
-                    ROLE_NAME = value
+            for i in value:
+                for key, value in i.items():
+                    if "name" in key:
+                        ROLE_NAME = value
 
 
 configuration = client.Configuration()
@@ -37,9 +38,11 @@ configuration.api_key['authorization'] = API_KEY
 class TestRoleBinding(unittest.TestCase):
     def test_role_binding(self):
         NAMESPACE_NAME = "testdemo"
+        VERBS = ["get", "list", "create", "delete", "update"]
+
         namespace_created = namespace.create(configuration, NAMESPACE_NAME)
         self.assertEqual(namespace_created, True)
-        role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME)
+        role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME, VERBS, VERBS)
         self.assertEqual(role_created, True)
         role_binding_created = role_binding.create(configuration, NAMESPACE_NAME, ROLE_NAME, "test_label", "test_user")
         self.assertEqual(role_binding_created, True)

@@ -14,6 +14,8 @@ API_KEY = ""
 CLUSTER_URL = ""
 ROLE_NAME = ""
 ROLE_TITLE = ""
+POD_VERBS = []
+DEVELOPMENT_VERBS = []
 
 # Requirement Data Variable
 NAMESPACE_NAME = ""
@@ -26,12 +28,15 @@ for data in config_yml:
         if "cluster_url" in key:
             CLUSTER_URL = value
         if "role" in key:
-            for key, value in value.items():
-                if "name" in key:
-                    ROLE_NAME = value
-                if "title" in key:
-                    ROLE_TITLE = value
-            
+            for i in value:
+                for key, value in i.items():
+                    if "name" in key:
+                        ROLE_NAME = value
+                    if "title" in key:
+                        ROLE_TITLE = value
+                    if "verbs" in key:
+                        POD_VERBS = value["pod"]
+                        DEVELOPMENT_VERBS = value["deployments"]
 
 for data in requirement_yml:
     for key, value in data.items():
@@ -57,7 +62,7 @@ else:
     print("ERROR While Creating Namespace!!")
     exit()
 
-role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME)
+role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME, POD_VERBS, DEVELOPMENT_VERBS)
 
 if role_created:
     print("Role Named " + ROLE_NAME + " Created")

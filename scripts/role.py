@@ -1,10 +1,9 @@
 import kubernetes.client
 
-def create(configuration, NAMESPACE_NAME, ROLE_NAME):
+def create(configuration, NAMESPACE_NAME, ROLE_NAME, POD_VERBS, DEVELOPMENT_VERBS):
     rules = [
-            kubernetes.client.V1PolicyRule([""], resources=["pods"], verbs=["get", "list", "create", "delete", "update"], ),
-            kubernetes.client.V1PolicyRule(["extensions"], resources=["deployments", "replicasets"],
-                                        verbs=["get", "list", "create", "delete", "update"], )
+            kubernetes.client.V1PolicyRule([""], resources=["pods"], verbs=POD_VERBS, ),
+            kubernetes.client.V1PolicyRule(["extensions"], resources=["deployments", "replicasets"], verbs=DEVELOPMENT_VERBS)
         ]
     role = kubernetes.client.V1Role(rules=rules)
     role.metadata = kubernetes.client.V1ObjectMeta(namespace=NAMESPACE_NAME,

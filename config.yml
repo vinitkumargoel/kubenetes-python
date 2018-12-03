@@ -1,5 +1,8 @@
 token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tdmI1czgiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImQ1NmU4Y2I4LWY3MzUtMTFlOC1iNDQxLTA4MDAyN2JhZWQxYSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.gvPOGmALEA2WRAKAK4_TaE-U2RBRFCXMj5JgcmqDWkzFaETZN1QfAwKoSVKRNUIWWPr2AvHOE5s6V5lOjL8faS92ZiCsL7E-hfbajIUk1lYt_mE_-nVHjwDvIsjM8aA5U4juhXbM3prqMEpmdsW5A6pYEZ8eD8uxcb572aCGVy5T0GET4y-C8_6JvShmJNHMWiiTByZVYurResIVDMYa_VH0qgQACc1nfl-F1F_ipXCA3W3e1zbs8jvLlmAhr-iBnDMpmwBMBOWdnjgCCL4DnIsaV-D3AnGEjtnm9sbN-iueTmSHjjVsdqVUD3_cJulbKOLFysmD5HinhteYiZD9aw"
 cluster_url: "127.0.0.1:8001"
 role:
-  name: "dev_admin"
-  title: developer_access
+  - name: "dev_admin"
+    verbs:
+      pod: ["get", "list", "create", "delete", "update"]
+      deployments: ["get", "list", "create", "delete", "update"]
+    title: "developer_access"
