@@ -1,0 +1,6 @@
+namespace:
+  name: "test1"
+role:
+  name: "dev_admin"
+user:
+  name: "vinit"
