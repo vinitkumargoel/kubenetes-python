@@ -1,5 +1,7 @@
 # Kubernetes Python
 
+This application can create Namespaces and user roles in one shot.
+
 ## Important commands
 
 - **Run Program** = python run.py
