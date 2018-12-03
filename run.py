@@ -1,15 +1,13 @@
-import yaml
-import namespace
-import role
-import role_binding
-import kubernetes.client
-import sys
+from yaml import load_all
+from scripts import namespace, role, role_binding
+from kubernetes import client
+from sys import exit
 
 stream = open("config.yml", "r")
-config_yml = yaml.load_all(stream)
+config_yml = load_all(stream)
 
 stream_2 = open("requirements.yml", "r")
-requirement_yml = yaml.load_all(stream_2)
+requirement_yml = load_all(stream_2)
 
 # Config Data Variables
 API_KEY = ""
@@ -46,7 +44,7 @@ for data in requirement_yml:
                 if "name" in key:
                     USER_NAME = value
 
-configuration = kubernetes.client.Configuration()
+configuration = client.Configuration()
 configuration.host = CLUSTER_URL
 configuration.verify_ssl = False
 configuration.api_key['authorization'] = API_KEY
@@ -57,7 +55,7 @@ if namespace_created:
     print("Namespace Named " + NAMESPACE_NAME + " Created")
 else:
     print("ERROR While Creating Namespace!!")
-    sys.exit()
+    exit()
 
 role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME)
 
@@ -65,7 +63,7 @@ if role_created:
     print("Role Named " + ROLE_NAME + " Created")
 else:
     print("ERROR While Creating Role!!")
-    sys.exit()
+    exit()
 
 role_binding_created = role_binding.create(configuration, NAMESPACE_NAME, ROLE_NAME, ROLE_TITLE, USER_NAME)
 
@@ -73,4 +71,4 @@ if role_binding_created:
     print("Role Biding Named " + USER_NAME + " Created")
 else:
     print("ERROR While Creating Role!!")
-    sys.exit()
+    exit()
