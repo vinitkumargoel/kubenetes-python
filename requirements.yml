@@ -1,6 +1,10 @@
-namespace:
-  name: "test1"
-role:
-  name: "dev_admin"
-user:
-  name: "vinit"
+requirements:
+  - namespace: "test1"
+    role: "dev_admin"
+    user: "vinit"
+  - namespace: "test2"
+    role: "dev_admin"
+    user: "goel"
+  - namespace: "test3"
+    role: "dev_admin"
+    user: "kumar"

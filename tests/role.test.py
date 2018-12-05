@@ -36,6 +36,7 @@ configuration.api_key['authorization'] = API_KEY
 
 class TestRole(unittest.TestCase):
     def test_role(self):
+        
         VERBS = ["get", "list", "create", "delete", "update"]
         namespace_created = namespace.create(configuration, "testdemo")
         self.assertEqual(namespace_created, True)

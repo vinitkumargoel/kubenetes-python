@@ -18,8 +18,7 @@ POD_VERBS = []
 DEVELOPMENT_VERBS = []
 
 # Requirement Data Variable
-NAMESPACE_NAME = ""
-USER_NAME = ""
+REQUIREMENT_DATA = []
 
 for data in config_yml:
     for key, value in data.items():
@@ -40,40 +39,38 @@ for data in config_yml:
 
 for data in requirement_yml:
     for key, value in data.items():
-        if "namespace" in key:
-            for key, value in value.items():
-                if "name" in key:
-                    NAMESPACE_NAME = value
-        if "user" in key:
-            for key, value in value.items():
-                if "name" in key:
-                    USER_NAME = value
-
+        if "requirements" in key:
+           for i in value:
+               REQUIREMENT_DATA.append(i)
+                   
 configuration = client.Configuration()
 configuration.host = CLUSTER_URL
 configuration.verify_ssl = False
 configuration.api_key['authorization'] = API_KEY
 
-namespace_created = namespace.create(configuration, NAMESPACE_NAME)
+for i in REQUIREMENT_DATA:
+    NAMESPACE_NAME = i["namespace"]
+    USER_NAME = i["user"]
+    namespace_created = namespace.create(configuration, NAMESPACE_NAME)
+    if namespace_created:
+        print("Namespace Named " + NAMESPACE_NAME + " Created")
+    else:
+        print("ERROR While Creating Namespace!!")
+        exit()
 
-if namespace_created:
-    print("Namespace Named " + NAMESPACE_NAME + " Created")
-else:
-    print("ERROR While Creating Namespace!!")
-    exit()
+    role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME, POD_VERBS, DEVELOPMENT_VERBS)
 
-role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME, POD_VERBS, DEVELOPMENT_VERBS)
+    if role_created:
+        print("Role Named " + ROLE_NAME + " Created")
+    else:
+        print("ERROR While Creating Role!!")
+        exit()
 
-if role_created:
-    print("Role Named " + ROLE_NAME + " Created")
-else:
-    print("ERROR While Creating Role!!")
-    exit()
+    role_binding_created = role_binding.create(configuration, NAMESPACE_NAME, ROLE_NAME, ROLE_TITLE, USER_NAME)
 
-role_binding_created = role_binding.create(configuration, NAMESPACE_NAME, ROLE_NAME, ROLE_TITLE, USER_NAME)
-
-if role_binding_created:
-    print("Role Biding Named " + USER_NAME + " Created")
-else:
-    print("ERROR While Creating Role!!")
-    exit()
+    if role_binding_created:
+        print("Role Biding Named " + USER_NAME + " Created")
+    else:
+        print("ERROR While Creating Role!!")
+        exit()
+    print("-----------------------------------------")

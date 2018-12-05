@@ -40,6 +40,7 @@ class TestRoleBinding(unittest.TestCase):
         NAMESPACE_NAME = "testdemo"
         VERBS = ["get", "list", "create", "delete", "update"]
 
+
         namespace_created = namespace.create(configuration, NAMESPACE_NAME)
         self.assertEqual(namespace_created, True)
         role_created = role.create(configuration, NAMESPACE_NAME, ROLE_NAME, VERBS, VERBS)
