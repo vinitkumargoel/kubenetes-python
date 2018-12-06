@@ -14,3 +14,4 @@ def create(configuration, NAMESPACE_NAME, ROLE_NAME, ROLE_TITLE, USER_NAME):
         print(e)
         return False
         
+        

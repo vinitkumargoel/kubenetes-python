@@ -16,3 +16,4 @@ def create(configuration, NAMESPACE_NAME, ROLE_NAME, POD_VERBS, DEVELOPMENT_VERB
         print(e)
         return False
   
+  

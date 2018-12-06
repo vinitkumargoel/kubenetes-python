@@ -16,8 +16,6 @@ config_yml = load_all(stream)
 API_KEY = ""
 CLUSTER_URL = ""
 
-
-
 for data in config_yml:
     for key, value in data.items():
         if "token" in key:
@@ -43,3 +41,4 @@ class TestNamespace(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    

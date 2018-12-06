@@ -22,3 +22,4 @@ def delete(configuration, NAMESPACE_NAME):
     except Exception as e:
         print("Exception when calling CoreV1Api->delete_namespace: %s\n" % e)
         return False
+        
